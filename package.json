@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "assemblyscript-esm-test",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "assemblyscript": "^0.17.0"
+  }
+}

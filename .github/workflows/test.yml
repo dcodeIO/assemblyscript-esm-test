@@ -1,0 +1,29 @@
+name: Test
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '15', '15.0.0', '14', '14.0.0', '13', '13.0.0', '12', '12.0.0', '11', '11.0.0', '10', '10.0.0' ]
+    name: "Node ${{ matrix.node }}"
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node }}
+    - run: npm install
+      if: always()
+    - name: "import 'pkg'"
+      if: always()
+      run: node index.js
+    - name: "require('pkg')"
+      if: always()
+      run: node umd/index.js
+    - name: "require('pkg/umd')"
+      if: always()
+      run: node legacy/index.js
